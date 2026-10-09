@@ -8,6 +8,7 @@ const Sidebar = ({ user, isCollapsed, setIsCollapsed }) => {
     const { pathname } = useLocation();
     const navigate = useNavigate();  
     const sidebarRef = useRef(null);
+    const mobileSidebarRef = useRef(null);
 
     const [mobileOpen, setMobileOpen]= useState(false);
     const [activeHover, setActiveHover] = useState(null);
@@ -18,6 +19,9 @@ const Sidebar = ({ user, isCollapsed, setIsCollapsed }) => {
         { text: "Expenses", path: "/expense", icon: <ArrowDown size={20} /> },
         { text: "Profile", path: "/profile", icon: <User size={20} /> },
     ];
+    const SUPPORT_EMAIL = "tanishaj1503@gmail.com";
+    const SUPPORT_SUBJECT = "Spend Smart Support";
+    const SUPPORT_URL = `https://mail.google.com/mail/?view=cm&fs=1&to=${SUPPORT_EMAIL}&su=${encodeURIComponent(SUPPORT_SUBJECT)}`;
 
     const {name: username= "User", email= "user@example.com"}= user || {};
     const initial = username.charAt(0).toUpperCase();
@@ -28,17 +32,6 @@ const Sidebar = ({ user, isCollapsed, setIsCollapsed }) => {
         return () => { document.body.style.overflow = "auto" };
     }, [mobileOpen]);
 
-
-    //IF WE CLICK OUTSIDE THE BOX COLLAPSE SIDEBAR
-    useEffect(() => {
-        const handleClickOutside = (e) => {
-        if (mobileOpen && sidebarRef.current && !sidebarRef.current.contains(e.target)) {
-            setMobileOpen(false);
-        }
-        };
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, [mobileOpen]); 
 
     //TO LOGOUT
     const handleLogout = () => {
@@ -140,15 +133,17 @@ const Sidebar = ({ user, isCollapsed, setIsCollapsed }) => {
                             : sidebarStyles.footerContainer.expanded,
                     )}>
                         <a
-                                    href="mailto:tanishaj1503@gmail.com?subject=Spend%20Smart%20Support"
-                                    className={cn(
-                                        sidebarStyles.footerLink.base,
-                                        isCollapsed && sidebarStyles.footerLink.collapsed,
-                                    )}
-                                >
-                                    <HelpCircle size={20} className=" text-gray-500"/>
-                                    {!isCollapsed && <span>Support</span>}
-                                </a>
+                            href={SUPPORT_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={cn(
+                                sidebarStyles.footerLink.base,
+                                isCollapsed && sidebarStyles.footerLink.collapsed,
+                            )}
+                        >
+                            <HelpCircle size={20} className="text-gray-500" />
+                            {!isCollapsed && <span>Support</span>}
+                        </a>
                         {/*}
                         <Link
                             className={cn(
@@ -199,7 +194,7 @@ const Sidebar = ({ user, isCollapsed, setIsCollapsed }) => {
                     />
                     
                     <motion.div
-                    ref={sidebarRef}
+                    ref={mobileSidebarRef}
                     className={sidebarStyles.mobileSidebar.base}
                     initial={{ x: "-100%" }}
                     animate={{ x: 0 }}
@@ -216,7 +211,7 @@ const Sidebar = ({ user, isCollapsed, setIsCollapsed }) => {
                                         <h2 className="text-lg font-bold text-gray-800">
                                             {username}
                                         </h2>
-                                        <p className="text -sm text-gray-500">
+                                        <p className="text-sm text-gray-500">
                                             {email}
                                         </p>
                                     </div>
@@ -255,14 +250,14 @@ const Sidebar = ({ user, isCollapsed, setIsCollapsed }) => {
                             
                             <div className={sidebarStyles.mobileFooter}>
                                 <a
-                                    href="mailto:tanishaj1503@gmail.com?subject=Spend%20Smart%20Support"
-                                    className={cn(
-                                        sidebarStyles.footerLink.base,
-                                        isCollapsed && sidebarStyles.footerLink.collapsed,
-                                    )}
+                                    href={SUPPORT_URL}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={() => setMobileOpen(false)}
+                                    className={sidebarStyles.mobileFooterLink}
                                 >
-                                    <HelpCircle size={20} className=" text-gray-500"/>
-                                    {!isCollapsed && <span>Support</span>}
+                                    <HelpCircle size={20} className="text-gray-500" />
+                                    <span>Support</span>
                                 </a>
                                 {/*<Link 
                                 onClick={() => setMobileOpen(false)}

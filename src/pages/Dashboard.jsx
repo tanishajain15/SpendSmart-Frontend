@@ -149,21 +149,9 @@ useEffect(() => {
   ]);
 }, [currentTimeFrameData, timeFrame]);
 
-  const displayIncome =
-    timeFrame === "monthly" && typeof overviewMeta.monthlyIncome === "number"
-      ? overviewMeta.monthlyIncome
-      : currentTimeFrameData.income;
-
-  const displayExpenses =
-    timeFrame === "monthly" && typeof overviewMeta.monthlyExpense === "number"
-      ? overviewMeta.monthlyExpense
-      : currentTimeFrameData.expenses;
-
-  const displaySavings =
-    timeFrame === "monthly" && typeof overviewMeta.savings === "number"
-      ? overviewMeta.savings
-      : currentTimeFrameData.savings;
-
+  const displayIncome = currentTimeFrameData.income;
+  const displayExpenses = currentTimeFrameData.expenses;
+  const displaySavings = currentTimeFrameData.savings;
   //EXPENSE CHANGE PERCENTAGE
   const expenseChange = useMemo(() => {
     const prev = prevTimeFrameData.expenses;
@@ -460,17 +448,7 @@ useEffect(() => {
                     % of income
               </span>
             </div>
-            
-            {typeof overviewMeta.savingsRate === "number" && (
-              <span className={` px-2 py-1 rounded-full  tetx-xs font-medium ${
-                overviewMeta.savingsRate < 0
-                  ? trendStyles.negativeRate
-                  : trendStyles.positiveRate
-              }`}
-              >
-                {overviewMeta.savingsRate}%
-              </span>
-            )}
+          
           </div>          
         }                
         />

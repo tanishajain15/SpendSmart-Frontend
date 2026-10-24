@@ -144,17 +144,7 @@ const Sidebar = ({ user, isCollapsed, setIsCollapsed }) => {
                             <HelpCircle size={20} className="text-gray-500" />
                             {!isCollapsed && <span>Support</span>}
                         </a>
-                        {/*}
-                        <Link
-                            className={cn(
-                                sidebarStyles.footerLink.base,
-                                isCollapsed && sidebarStyles.footerLink.collapsed,
-                            )}
-                            to = "https://hexagondigitalservices.com/contact"
-                        >
-                            <HelpCircle size={20} className=" text-gray-500"/>
-                            {!isCollapsed && <span>Support</span>}
-                        </Link>*/}
+                        
 
                         <button onClick={handleLogout} className={cn(
                             sidebarStyles.logoutButton.base,
@@ -259,13 +249,7 @@ const Sidebar = ({ user, isCollapsed, setIsCollapsed }) => {
                                     <HelpCircle size={20} className="text-gray-500" />
                                     <span>Support</span>
                                 </a>
-                                {/*<Link 
-                                onClick={() => setMobileOpen(false)}
-                                to="https://hexagondigitalservices.com/contact" 
-                                className={sidebarStyles.mobileFooterLink}>
-                                    <HelpCircle size={20} className="teszt-gray=500"/>
-                                    <span>Support</span>
-                                </Link>*/}
+                                
                                 <button onClick={handleLogout} className={sidebarStyles.mobileLogoutButton}>
                                     <LogOut size={20} className="text-gray-500"/>
                                     <span>Logout</span>
